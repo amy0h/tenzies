@@ -1,8 +1,18 @@
-# React + Vite
+# Tenzies Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About
+This is a project created as part of Scrimba's Front-End Developer Career Path. It represents a game called "Tenzies."
 
-Currently, two official plugins are available:
+## Table of Contents
+- [About](#about)
+- [Built with](#built-with)
+- [Links](#links)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Built with
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- React.JS
+
+## Links
+- Live site URL: (https://tenzies-amy0h.netlify.app/)
