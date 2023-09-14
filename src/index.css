@@ -6,7 +6,7 @@
   --primary: #355C7D;
   --primary-dark: #1F344B;
   --secondary: #AD2E45;
-  --secondary-hover: #9B293E;
+  --secondary-dark: #9B293E;
 }
 
 body {
@@ -28,35 +28,54 @@ main {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.bold {
+  font-weight: 500;
 }
 
 .title {
   font-size: 2.5rem;
   margin: 0 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 800;
 }
 
 .instructions {
   font-weight: 400;
-  margin-top: 0;
+  margin: 0;
   text-align: center;
 }
 
-.records-container {
-  padding-bottom: 1.5em;
-  display: flex;
-  justify-content: center;
+.winner-text {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--secondary);
+  font-weight: 500;
+  letter-spacing: .05em;
 }
 
-.left {
-  margin-right: 3em;
+.records-container {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin: -.7em 0;
+  padding: 0;
 }
+
+.records-container p {
+  margin: 0;
+}
+
 
 .dice-container {
   display: grid;
   grid-template: auto auto / repeat(5, 1fr);
   gap: 1.12em;
-  margin-bottom: 2em;
+  margin: 1em 0;
 }
 
 .roll-dice {
@@ -66,15 +85,14 @@ main {
   border: none;
   background-color: var(--secondary);
   color: #FFFFFF;
-  font-family: 'Karla', sans-serif;
+  font-family: inherit;
   font-size: 1.5rem;
   cursor: pointer;
   padding: .3em .4em;
- 
 }
 
 .roll-dice:hover {
-  background-color: var(--secondary-hover);
+  background-color: var(--secondary-dark);
 }
 
 .roll-dice:focus {
@@ -94,7 +112,7 @@ main {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
   border-radius: 10%;
   padding: .5em;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--secondary-dark);
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -165,7 +183,13 @@ main {
 }
 
 .shake-animation {
-  animation: shake .5s ease-in-out infinite; /* Adjust duration and timing function as needed */
+  animation: shake .5s ease-in-out infinite;
+}
+
+.update-best-record {
+  animation: shake .7s ease-in-out infinite;
+  color: var(--secondary);
+  transition: color .3s ease;
 }
 
 /* Media queries */

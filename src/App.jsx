@@ -5,12 +5,23 @@ import Confetti from 'react-confetti'
 
 
 function App() {
+  const bestRollsElement = document.getElementById('best-rolls')
+  const bestTimeElement = document.getElementById('best-time')
+
   const [dice, setDice] = React.useState(allNewDice())
   const [tenzies, setTenzies] = React.useState(false)
   const [isShaking, setIsShaking] = React.useState(false)
   const [rollsCount, setRollsCount] = React.useState(0)
-  const [timer, setTimer] = React.useState(null) 
+  
+  const [bestRolls, setBestRoll] = React.useState(
+    JSON.parse(localStorage.getItem('bestRolls')) || 0
+  )
+  const [bestTime, setBestTime] = React.useState(
+    JSON.parse(localStorage.getItem('bestTime')) || 0
+  )
 
+  const [isRunning, setIsRunning] = React.useState(false)
+  const [time, setTime] = React.useState(0)
 
   React.useEffect(() => {
     const checkTenziesStatus = dice.every((die) => {
@@ -18,8 +29,53 @@ function App() {
     });
     if (checkTenziesStatus) {
       setTenzies(true)
+      setIsRunning(false)
+      setBestRecord()
     } 
   }, [dice]);
+
+  React.useEffect(() => {
+    localStorage.setItem('bestRolls', JSON.stringify(bestRolls))
+  }, [bestRolls])
+
+  React.useEffect(() => {
+    localStorage.setItem('bestTime', JSON.stringify(bestTime))
+  }, [bestTime])
+
+  React.useEffect(() => {
+    let intervalId
+    if (isRunning) {
+      // setting time from 0 to 1 every 10 milisecond
+      // using javascript setInterval method
+      intervalId = setInterval(() => setTime(time + 1), 10)
+    }
+    return () => clearInterval(intervalId)
+  }, [isRunning, time])
+
+  React.useEffect(() => {
+    if (rollsCount === 0 && !isRunning) {
+      setIsRunning(true);
+    }
+  }, [rollsCount, isRunning]);
+
+    // reset timer
+    const resetTimer = () => {
+      setTime(0);
+    };
+
+    function getFormattedTime(time) {
+      const minutes = Math.floor((time % 360000) / 6000)
+      const seconds = Math.floor((time % 6000) / 100)
+      const milliseconds = time % 100
+
+      return (
+        minutes.toString().padStart(2, "0") +
+        ":" +
+        seconds.toString().padStart(2, "0") +
+        ":" +
+        milliseconds.toString().padStart(2, "0")
+      )
+    }
 
   function generateNewDie() {
     return {
@@ -38,8 +94,6 @@ function App() {
 }
 
   function rollDice() {
-    console.log(rollsCount)
-    console.log(tenzies)
     if (!tenzies) {
       setRollsCount(prevCount => prevCount + 1)
       setDice(dice.map((die) => {
@@ -54,9 +108,7 @@ function App() {
       }, 300);
 
     } else {
-      setRollsCount(0)
-      setTenzies(false)
-      setDice(allNewDice)
+        resetGame()
     }
   }
 
@@ -66,6 +118,32 @@ function App() {
         {...die, isHeld: !die.isHeld} :
         die
     }))
+  }
+
+  function resetGame() {
+    setTenzies(false)
+    setRollsCount(0)
+    setDice(allNewDice)
+    resetTimer()
+  }
+
+  function setBestRecord() {
+    const animationClassName = 'update-best-record'
+    if (!bestRolls || rollsCount < bestRolls) {
+      setBestRoll(rollsCount)
+      addAndRemoveClass(bestRollsElement, animationClassName)
+    } 
+    if (!bestTime || time < bestTime) {
+      setBestTime(time)
+      addAndRemoveClass(bestTimeElement, animationClassName)
+    } 
+  }
+
+  function addAndRemoveClass(element, className) {
+    element.classList.add(className)
+    setTimeout(() => {
+      element.classList.remove(className)
+    }, 300);
   }
 
   const diceComponents = dice.map((die) => (
@@ -81,13 +159,36 @@ function App() {
       <main>
         <h1 className="title">Tenzies</h1>
         <p className="instructions">
-          Roll until all dice are the same.<br/>
-          Click each die to freeze it at its current value between rolls.
+        {tenzies
+          ? <p className='winner-text'>you won!</p>
+          : (
+            <>
+              Roll until all dice are the same.<br />
+              Click each die to freeze it at its current value between rolls.
+            </>
+          )}
+        </p>
+        <div className='records-container'>
+          <p>
+            <span className='bold'>Rolls: </span>
+            {rollsCount}
           </p>
-{          <div className='records-container'>
-            <span className='left'>Rolls: {rollsCount}</span> 
-            <span>Timer: </span> 
-          </div>}
+          <p>
+            <span className='bold'>Time: </span>
+            {getFormattedTime(time)}
+          </p>
+        </div>
+        <div className='records-container'>
+          <p id='best-rolls'>
+            <span className='bold'>Best Rolls: </span>
+            {bestRolls}
+          </p>
+          <p id='best-time'>
+          <span className='bold'>Best Time: </span>
+            {getFormattedTime(bestTime)}
+          </p>
+        </div>
+
         <div className='dice-container'>
           {diceComponents}
         </div>
@@ -98,7 +199,7 @@ function App() {
             height={window.innerHeight}
           />}
       </main>
-    </div> 
+    </div>
   )
 }
 

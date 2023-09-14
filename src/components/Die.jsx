@@ -10,7 +10,6 @@ export default function Die(props) {
     if (!props.isHeld && props.isShaking) {
         classNames.push('shake-animation');
     }
-    console.log(classNames)
     let faceComponent
 
     switch (props.value) {
