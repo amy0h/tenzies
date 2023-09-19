@@ -2,6 +2,7 @@ import React from 'react';
 import { firstFace, secondFace, thirdFace, fourthFace, fifthFace, sixthFace } from './DieFaces';
 
 export default function Die(props) {
+    // Define styles based on its isHeld property
     const styles = {
         backgroundColor: props.isHeld ? '#E6C0C7' : '#FFFFFF'
     }
@@ -10,6 +11,8 @@ export default function Die(props) {
     if (!props.isHeld && props.isShaking) {
         classNames.push('shake-animation');
     }
+
+    // Determine the faceComponent based on the value of the dice
     let faceComponent
 
     switch (props.value) {

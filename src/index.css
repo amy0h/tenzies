@@ -11,11 +11,15 @@
 
 body {
   margin: 0;
-  background-color: var(--primary);
+  background: rgb(31,52,75);
+  background: linear-gradient(30deg, rgba(31,52,75,1) 0%, rgba(53,92,125,1) 35%, rgba(173,46,69,1) 100%);
   padding: 3em 1.25em;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 main {
@@ -183,13 +187,13 @@ main {
 }
 
 .shake-animation {
-  animation: shake .5s ease-in-out infinite;
+  animation: shake .4s ease-in-out infinite;
 }
 
 .update-best-record {
-  animation: shake .7s ease-in-out infinite;
+  animation: shake 1s ease-in-out infinite;
   color: var(--secondary);
-  transition: color .3s ease;
+  transition: color 1s ease;
 }
 
 /* Media queries */
@@ -215,6 +219,12 @@ main {
   }
   .dice-container {
     gap: .7em;
+  }
+  .instructions {
+    font-size: .9rem;
+  }
+  .records-container p {
+    font-size: .9rem;
   }
 }
 
