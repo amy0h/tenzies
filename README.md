@@ -1,12 +1,12 @@
 # Tenzies Game
 
 ## About
-This is a project a part of Scrimba's Front-End Developer Career Path. It represents a dece game known as "Tenzies."
+This is a project a part of Scrimba's Front-End Developer Career Path. It represents a dice game known as "Tenzies."
 
 ## Table of Contents
 - [About](#about)
 - [Built with](#built-with)
-- [Extra features] (#extra-features)
+- [Extra features](#extra-features)
 - [Design](#design)
 - [Live Preview](#live-preview)
 - [Links](#links)
@@ -18,7 +18,8 @@ This is a project a part of Scrimba's Front-End Developer Career Path. It repres
 - [React](https://reactjs.org/) - JS library
 
 ## Design
-The app's design is based on the Figma page provided by Scrimba, but with some modifications by myself.
+The app's design is based on Scrimba's provided Figma page, with some personal modifications.
+
 ![Design Preview](./design/tenzies.png)
 
 ## Extra features
